@@ -1,0 +1,23 @@
+{
+    "name": "mahmodi/computer-simulator",
+    "description": "I have designed and developed this project for learn Mediator design pattern .",
+    "type": "project",
+    "require": {
+        "symfony/console": "^6.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mahmodi\\ComputerSimulator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mahdi",
+            "email": "mahmodimahdi26@gmail.com"
+        }
+    ]
+}
