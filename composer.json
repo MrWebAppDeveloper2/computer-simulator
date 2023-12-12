@@ -11,7 +11,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Mahmodi\\ComputerSimulator\\": "src/"
+            "Mahmodi\\ComputerSimulator\\": "src/",
+            "Tests\\": "tests/"
         }
     },
     "authors": [
