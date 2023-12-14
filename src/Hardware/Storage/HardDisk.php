@@ -2,24 +2,19 @@
 
 namespace Mahmodi\ComputerSimulator\Hardware\Storage;
 
-use Mahmodi\ComputerSimulator\Hardware\Storage\Trait\HasAssetBuilder;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Trait\HasFacades;
+use Mahmodi\ComputerSimulator\Hardware\Storage\Trait\HasServiceFactory;
 
 class HardDisk
 {
-    use HasFacades;
+    use HasServiceFactory;
 
     /**
-     * آدرس فولدر روت هارد که تمامی فایل ها
-     * و فولدر ها درون آن ذخیره می شوند
+     * Hard disk root directory name
      */
     private const ROOT_DIRECTORY = 'root/';
 
     /**
-     * آدرس فولدر روت هارد دیسک را باز می گرداند
-     * 
-     * آدرس کامل فولدر روت را با توجه به ROOT_DIRECTORY 
-     * باز می گرداند
+     * Returns root directory path address
      *
      * @return string
      */
