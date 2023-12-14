@@ -3,10 +3,11 @@
 namespace Mahmodi\ComputerSimulator\Hardware\Storage;
 
 use Mahmodi\ComputerSimulator\Hardware\Storage\Trait\HasAssetBuilder;
+use Mahmodi\ComputerSimulator\Hardware\Storage\Trait\HasFacades;
 
 class HardDisk
 {
-    use HasAssetBuilder;
+    use HasFacades;
 
     /**
      * آدرس فولدر روت هارد که تمامی فایل ها
@@ -22,8 +23,8 @@ class HardDisk
      *
      * @return string
      */
-    public function rootDirectoryPath():string
+    public static function rootDirectoryPath():string
     {
-        return trim(__DIR__ . DIRECTORY_SEPARATOR . self::ROOT_DIRECTORY, '/\\ .');
+        return rtrim(__DIR__ . DIRECTORY_SEPARATOR . self::ROOT_DIRECTORY, '/\\ .');
     }
 }
