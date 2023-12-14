@@ -15,6 +15,7 @@ class Test extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         HardDisk::directory()->create('test');
+        dd(HardDisk::directory()->delete('test'));
 
         $io = new SymfonyStyle($input, $output);
 

@@ -20,7 +20,7 @@ class Directory
      */
     public function create(string $path): bool
     {
-        $directory = $this->getRootDirectory() . DIRECTORY_SEPARATOR . trim($path, '/\\ .');
+        $directory = $this->getRealPath($path);
 
         if(!is_dir($directory))
             if(!mkdir($directory))
@@ -30,20 +30,38 @@ class Directory
     }
 
     /**
-     * Returns path of root directory
+     * Delete enter path directory from computer hard disk root directory
+     *
+     * @param string $path
+     * @param bool $strict if be true when $path directory address not valid , returns false else ignores and returns true
+     * @return bool
+     */
+    public function delete(string $path, bool $strict = false):bool
+    {
+        $directory = $this->getRealPath($path);
+
+        if(!is_dir($directory))
+            return !$strict;
+
+        return rmdir($directory);
+    }
+
+    /**
+     * Returns concatenate of root directory with entry $path parameter
      *
      * Before return address check that is root directory exists
      * if not makes directory then return address of that
      *
+     * @param string $path
      * @return string
      */
-    private function getRootDirectory():string
+    public function getRealPath(string $path):string
     {
         $root = HardDisk::rootDirectoryPath();
 
         if(!is_dir($root))
             mkdir($root, 0777, true);
 
-        return $root;
+        return $root . DIRECTORY_SEPARATOR . trim($path, '/\\ .');
     }
 }
