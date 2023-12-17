@@ -47,17 +47,39 @@ class Directory
         return rmdir($directory);
     }
 
+//    /**
+//     * Moves entry directory path to new path that is $where path address
+//     *
+//     * @param string $path
+//     * @param string $where
+//     * @return bool
+//     */
+//    public function move(string $path, string $where):bool
+//    {
+//        if(!is_dir($directory = $this->getRealPath($path)))
+//            return false;
+//    }
+
     /**
-     * Moves entry directory path to new path that is $where path address
+     * Returns list of directories and files within entry $path directory
+     * False returns if $path is not valid
      *
      * @param string $path
-     * @param string $where
-     * @return bool
+     * @param bool $hidden if be true hidden files and directories add to return list
+     * @return array|false
      */
-    public function move(string $path, string $where):bool
+    public function list(string $path, bool $hidden = false):array|false
     {
-        if(!is_dir($directory = $this->getRealPath($path)))
-            return false;
+        $directory = $this->getRealPath($path);
+
+        $list = scandir($directory);
+
+        if(!$hidden)
+            foreach ($list as $index => $name)
+                if(str_starts_with($name, '.'))
+                    unset($list[$index]);
+
+        return $list;
     }
 
     /**
