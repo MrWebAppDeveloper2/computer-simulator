@@ -33,7 +33,8 @@ class Directory
      * Delete enter path directory from computer hard disk root directory
      *
      * @param string $path
-     * @param bool $strict if be true when $path directory address not valid , returns false else ignores and returns true
+     * @param bool $strict if be true when $path directory address not valid ,
+     * returns false else ignores and returns true
      * @return bool
      */
     public function delete(string $path, bool $strict = false):bool
@@ -44,6 +45,19 @@ class Directory
             return !$strict;
 
         return rmdir($directory);
+    }
+
+    /**
+     * Moves entry directory path to new path that is $where path address
+     *
+     * @param string $path
+     * @param string $where
+     * @return bool
+     */
+    public function move(string $path, string $where):bool
+    {
+        if(!is_dir($directory = $this->getRealPath($path)))
+            return false;
     }
 
     /**
