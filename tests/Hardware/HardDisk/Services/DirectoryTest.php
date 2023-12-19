@@ -4,9 +4,12 @@ namespace Tests\Hardware\HardDisk\Services;
 
 use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
 use PHPUnit\Framework\TestCase;
+use Tests\Hardware\HardDisk\Traits\RefreshStorage;
 
 class DirectoryTest extends TestCase
 {
+    use RefreshStorage;
+
     /**
      * Tests create method of HardDisk's Directory Service
      *
@@ -61,6 +64,25 @@ class DirectoryTest extends TestCase
 
     /**
      * Asserts that list directory method service return
+     * hidden files and directories when show hidden param
+     * true passed successfully
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function test_list_directory_method_for_show_hidden_files_and_directory_is_ok()
+    {
+        $this->assertTrue(HardDisk::directory()->create('/test'));
+
+        $this->assertTrue(HardDisk::file()->create('/test/.myFile.txt', 'Hello World !'));
+
+        $this->assertTrue(HardDisk::directory()->create('/test/.myDirectory'));
+
+        $this->assertTrue(in_array(['.myDirectory', '.myFile.txt'], HardDisk::directory()->list('/test/')));
+    }
+
+    /**
+     * Asserts that list directory method service return
      * correct directory successfully
      *
      * @return void
@@ -82,6 +104,7 @@ class DirectoryTest extends TestCase
      * target directory for move ,Service returns false
      *
      * @return void
+     * @throws \Exception
      */
     public function test_move_directory_method_return_false_when_path_is_fake()
     {
