@@ -5,22 +5,6 @@ namespace Mahmodi\ComputerSimulator\Hardware\Storage\Helper;
 class DirectoryHelper
 {
     /**
-     * Creates directory by given $dirname path
-     *
-     * @param string $dirname
-     * @param bool $recursive If is true , directories
-     * and subdirectories and listed in $dirname path
-     * that aren't exists as yet , will create by
-     * this function , If is false, function will
-     * return false
-     * @return bool
-     */
-    public static function createDirectory(string $dirname, bool $recursive = true): bool
-    {
-        return mkdir($dirname, 0777, $recursive);
-    }
-
-    /**
      * Copy a directory by its content to new path
      *
      * Iterates all content of $path directory and
