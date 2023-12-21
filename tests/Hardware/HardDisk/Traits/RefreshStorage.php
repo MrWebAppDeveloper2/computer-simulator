@@ -11,7 +11,19 @@ use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
 trait RefreshStorage
 {
     /**
+     * Runs before each test method execution
+     * and removes all create directories
+     *
+     * @return void
+     */
+    protected function setUp():void
+    {
+        HardDisk::directory()->resetFactory();
+    }
+
+    /**
      * Runs after each test method execution
+     * and removes all create directories
      *
      * @return void
      */

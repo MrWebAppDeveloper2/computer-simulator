@@ -40,7 +40,7 @@ class Directory
      */
     public function delete(string $path, bool $strict = false): bool
     {
-        $directory = $this->getRealPath($path);
+        $directory = !is_dir($path) ? $this->getRealPath($path) : $path;
 
         if (!is_dir($directory))
             return !$strict;
@@ -50,9 +50,15 @@ class Directory
                 continue;
             }
 
-            if (!self::delete($directory . DIRECTORY_SEPARATOR . $item)) {
-                return false;
-            }
+            $itemPath = $directory . DIRECTORY_SEPARATOR . $item;
+
+            if (is_dir($itemPath))
+                if (!self::delete($itemPath))
+                    return false;
+                else
+                    continue;
+
+            unlink($itemPath);
         }
 
         return rmdir($directory);
