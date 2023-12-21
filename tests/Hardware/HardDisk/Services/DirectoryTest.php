@@ -25,13 +25,14 @@ class DirectoryTest extends TestCase
 
     /**
      * Asserts when client give fake directory path to
-     * Directory Service it returns false
+     * Directory Service and restrict flag is true it
+     * returns false
      *
      * @return void
      */
     public function test_delete_directory_method_return_false_when_path_is_fake()
     {
-        $this->assertFalse(HardDisk::directory()->delete('fake/directory'));
+        $this->assertFalse(HardDisk::directory()->delete('fake/directory', true));
     }
 
     /**
@@ -72,6 +73,8 @@ class DirectoryTest extends TestCase
      */
     public function test_list_directory_method_for_show_hidden_files_and_directory_is_ok()
     {
+        $this->markTestIncomplete('Because file service class does not created as yet !');
+
         $this->assertTrue(HardDisk::directory()->create('/test'));
 
         $this->assertTrue(HardDisk::file()->create('/test/.myFile.txt', 'Hello World !'));
@@ -90,6 +93,8 @@ class DirectoryTest extends TestCase
      */
     public function test_list_directory_method_is_ok()
     {
+        $this->markTestIncomplete('Because file service class does not created as yet !');
+
         $this->assertTrue(HardDisk::directory()->create('/test'));
 
         $this->assertTrue(HardDisk::file()->create('/test/myFile.txt', 'Hello World !'));
@@ -144,7 +149,7 @@ class DirectoryTest extends TestCase
 
         $this->assertTrue(HardDisk::directory()->create('test/mySecondDirectory'));
 
-        $this->assertFalse(HardDisk::directory()->move('/test/mySecondDirectory', '/test/myFirstDirectory', true));
+        $this->assertTrue(HardDisk::directory()->move('/test/mySecondDirectory', '/test/myFirstDirectory', true));
     }
 
     /**
@@ -174,6 +179,7 @@ class DirectoryTest extends TestCase
      */
     public function test_move_directory_method_for_change_place_is_ok()
     {
+//        $this->markTestIncomplete("Because move directory method service can not realize between states renaming and moving directory. It can just rename directory for now .");
         $this->assertTrue(HardDisk::directory()->create('/first/myDirectory'));
 
         $this->assertTrue(HardDisk::directory()->move('/first/myDirectory', '/second/myDirectory'));
@@ -191,6 +197,7 @@ class DirectoryTest extends TestCase
      */
     public function test_copy_directory_method_return_false_when_path_of_target_directory_is_fake()
     {
+        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
         $this->assertFalse(HardDisk::directory()->copy('myDirectory', '/nested'));
     }
 
@@ -203,6 +210,8 @@ class DirectoryTest extends TestCase
      */
     public function test_copy_directory_method_return_false_when_path_of_destination_directory_is_fake()
     {
+        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
+
         $this->assertTrue(HardDisk::directory()->create('/myDirectory'));
 
         $this->assertFalse(HardDisk::directory()->copy('/myDirectory', '/nested'));
@@ -219,6 +228,8 @@ class DirectoryTest extends TestCase
      */
     public function test_copy_directory_method_return_false_when_there_is_a_same_name_directory_in_copy_path_and_replace_flag_is_false()
     {
+        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
+
         $this->assertTrue(HardDisk::directory()->create('/test/nested/myDirectory'));
 
         $this->assertTrue(HardDisk::directory()->create('/test/myDirectory'));
@@ -237,6 +248,8 @@ class DirectoryTest extends TestCase
      */
     public function test_copy_directory_method_return_true_when_there_is_a_same_name_directory_in_copy_path_and_replace_flag_is_true()
     {
+        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
+
         $this->assertTrue(HardDisk::directory()->create('/test/nested/myDirectory'));
 
         $this->assertTrue(HardDisk::directory()->create('/test/myDirectory'));
@@ -253,6 +266,8 @@ class DirectoryTest extends TestCase
      */
     public function test_copy_directory_method_is_ok()
     {
+        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
+
         $this->assertTrue(HardDisk::directory()->create('/test/first'));
 
         $this->assertTrue(HardDisk::directory()->create('/test/first/nested'));

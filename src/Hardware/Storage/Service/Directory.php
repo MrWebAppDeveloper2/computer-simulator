@@ -24,7 +24,7 @@ class Directory
         $directory = $this->getRealPath($path);
 
         if (!is_dir($directory))
-            if (!mkdir($directory))
+            if (!mkdir($directory, 0777, true))
                 throw new \Exception('Create folder unsuccessful !');
 
         return true;
@@ -45,11 +45,24 @@ class Directory
         if (!is_dir($directory))
             return !$strict;
 
+        foreach (scandir($directory) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+
+            if (!self::delete($directory . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+        }
+
         return rmdir($directory);
     }
 
     /**
      * Moves entry directory path to new path that is $where path address
+     *
+     * If parent directory of target directory is same and have not any diff
+     * by current, this function acts as renaming directory service as well
      *
      * @param string $path
      * @param string $where
@@ -61,16 +74,20 @@ class Directory
     {
         if (!is_dir($directory = $this->getRealPath($path)))
             return false;
-
-        if
-        (is_dir($destinationDirectory = $this->getRealPath($where)))
-            if(!$replace)
+        if (is_dir($destinationDirectory = $this->getRealPath($where)))
+            if (!$replace)
                 return false;
             else
-                if(!rmdir($destinationDirectory))
+                if (!DirectoryHelper::deleteDirectory($destinationDirectory))
                     throw new \Exception('Remove directory for replace new unsuccessfully in move directory method !');
 
-        return rename($directory, $destinationDirectory);
+        if (dirname($directory) === dirname($destinationDirectory))
+            return rename($directory, $destinationDirectory);
+
+        if (!DirectoryHelper::copyDirectory($directory, $destinationDirectory))
+            throw new \Exception('Copy target directory ($path) to destination directory ($where) was not successful in move directory service');
+
+        return DirectoryHelper::deleteDirectory($path);
     }
 
     /**
@@ -120,7 +137,7 @@ class Directory
      *
      * @return bool
      */
-    public function resetFactory():bool
+    public function resetFactory(): bool
     {
         $root = HardDisk::rootDirectoryPath();
 
