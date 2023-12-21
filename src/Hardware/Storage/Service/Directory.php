@@ -78,7 +78,7 @@ class Directory
             if (!$replace)
                 return false;
             else
-                if (!DirectoryHelper::deleteDirectory($destinationDirectory))
+                if (!self::delete($destinationDirectory))
                     throw new \Exception('Remove directory for replace new unsuccessfully in move directory method !');
 
         if (dirname($directory) === dirname($destinationDirectory))
@@ -87,7 +87,7 @@ class Directory
         if (!DirectoryHelper::copyDirectory($directory, $destinationDirectory))
             throw new \Exception('Copy target directory ($path) to destination directory ($where) was not successful in move directory service');
 
-        return DirectoryHelper::deleteDirectory($path);
+        return self::delete($path);
     }
 
     /**
@@ -141,6 +141,6 @@ class Directory
     {
         $root = HardDisk::rootDirectoryPath();
 
-        return DirectoryHelper::deleteDirectory($root);
+        return self::delete($root);
     }
 }
