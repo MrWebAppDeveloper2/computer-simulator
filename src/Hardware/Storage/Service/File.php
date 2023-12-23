@@ -2,7 +2,7 @@
 
 namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service;
 
-class File
+class File implements IHardDiskService
 {
-    
+
 }

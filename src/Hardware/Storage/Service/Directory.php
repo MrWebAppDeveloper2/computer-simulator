@@ -2,6 +2,7 @@
 
 namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service;
 
+use Exception;
 use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
 use Mahmodi\ComputerSimulator\Hardware\Storage\Helper\DirectoryHelper;
 
@@ -12,6 +13,38 @@ use Mahmodi\ComputerSimulator\Hardware\Storage\Helper\DirectoryHelper;
  */
 class Directory implements IHardDiskService
 {
+    /**
+     * File service object
+     *
+     * @var IHardDiskService
+     */
+    private static IHardDiskService $file;
+
+    /**
+     * @throws Exception
+     */
+    public function __construct()
+    {
+        self::initialFileService();
+    }
+
+    /**
+     * Create new instance of file service object then
+     * store in property
+     *
+     * @return void
+     * @throws Exception
+     */
+    private static function initialFileService(): void
+    {
+        try {
+            if(!isset(self::$file))
+                self::$file = new File();
+        } catch (Exception $e){
+            throw new $e;
+        }
+    }
+
     /**
      * Makes enter path directory in computer hard disk root directory
      *
