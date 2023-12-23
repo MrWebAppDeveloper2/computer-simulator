@@ -10,7 +10,7 @@ use Mahmodi\ComputerSimulator\Hardware\Storage\Helper\DirectoryHelper;
  *
  * Such as create ,delete ,scan directory
  */
-class Directory
+class Directory implements IHardDiskService
 {
     /**
      * Makes enter path directory in computer hard disk root directory
@@ -80,6 +80,7 @@ class Directory
     {
         if (!is_dir($directory = $this->getRealPath($path)))
             return false;
+
         if (is_dir($destinationDirectory = $this->getRealPath($where)))
             if (!$replace)
                 return false;
@@ -94,6 +95,19 @@ class Directory
             throw new \Exception('Copy target directory ($path) to destination directory ($where) was not successful in move directory service');
 
         return self::delete($path);
+    }
+
+    public function copy(string $path, string $where, bool $replace = true):bool
+    {
+        if (!is_dir($directory = $this->getRealPath($path)))
+            return false;
+
+        if (is_dir($destinationDirectory = $this->getRealPath($where)))
+            if (!$replace)
+                return false;
+            else
+                if (!self::delete($destinationDirectory))
+                    throw new \Exception('Remove directory for replace new unsuccessfully in copy directory method !');
     }
 
     /**
