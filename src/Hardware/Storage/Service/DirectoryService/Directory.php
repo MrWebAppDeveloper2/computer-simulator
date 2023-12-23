@@ -172,18 +172,12 @@ class Directory implements IHardDiskDirectoryService
     /**
      * Returns concatenate of root directory with entry $path parameter
      *
-     * Before return address check that is root directory exists
-     * if not makes directory then return address of that
-     *
      * @param string $path
      * @return string
      */
     public function getRealPath(string $path): string
     {
         $root = HardDisk::rootDirectoryPath();
-
-        if (!is_dir($root))
-            mkdir($root, 0777, true);
 
         return $root . DIRECTORY_SEPARATOR . trim($path, '/\\ .');
     }
