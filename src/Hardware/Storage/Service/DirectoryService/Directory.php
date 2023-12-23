@@ -6,6 +6,8 @@ use Exception;
 use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
 use Mahmodi\ComputerSimulator\Hardware\Storage\Helper\DirectoryHelper;
 use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\File;
+use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\IHardDiskFileService;
+use PHPUnit\Runner\InvalidPhptFileException;
 
 /**
  * Includes all function related to hard disk directory
@@ -17,9 +19,9 @@ class Directory implements IHardDiskDirectoryService
     /**
      * File service object
      *
-     * @var IHardDiskDirectoryService
+     * @var IHardDiskFileService
      */
-    private static IHardDiskDirectoryService $file;
+    private static IHardDiskFileService $file;
 
     /**
      * @throws Exception
