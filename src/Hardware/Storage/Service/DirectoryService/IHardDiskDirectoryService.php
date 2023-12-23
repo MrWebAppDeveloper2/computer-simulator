@@ -1,11 +1,8 @@
 <?php
 
-namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service;
+namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service\DirectoryService;
 
-use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Helper\DirectoryHelper;
-
-interface IHardDiskService
+interface IHardDiskDirectoryService
 {
     /**
      *

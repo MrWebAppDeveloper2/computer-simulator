@@ -1,24 +1,25 @@
 <?php
 
-namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service;
+namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service\DirectoryService;
 
 use Exception;
 use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
 use Mahmodi\ComputerSimulator\Hardware\Storage\Helper\DirectoryHelper;
+use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\File;
 
 /**
  * Includes all function related to hard disk directory
  *
  * Such as create ,delete ,scan directory
  */
-class Directory implements IHardDiskService
+class Directory implements IHardDiskDirectoryService
 {
     /**
      * File service object
      *
-     * @var IHardDiskService
+     * @var IHardDiskDirectoryService
      */
-    private static IHardDiskService $file;
+    private static IHardDiskDirectoryService $file;
 
     /**
      * @throws Exception
