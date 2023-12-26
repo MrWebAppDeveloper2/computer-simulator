@@ -32,6 +32,25 @@ class File implements IHardDiskFileService
     }
 
     /**
+     * Create new file in $path
+     *
+     * @param string $path
+     * @param string $content
+     * @return bool
+     * @throws \Exception
+     */
+    public function create(string $path, string $content): bool
+    {
+        $realPath = $this->getRealPath($path);
+
+        if(!is_dir(dirname($realPath)))
+            if(!HardDisk::directory()->create(dirname($path)))
+                throw new \Exception("Create new file doesn't successful because create file directory returns false and directory doesn't build !");
+
+        return file_put_contents($realPath, $content) !== false;
+    }
+
+    /**
      * Returns concatenate of root directory with entry $path parameter
      *
      * Before return address check that is root directory exists
@@ -46,5 +65,4 @@ class File implements IHardDiskFileService
 
         return $root . DIRECTORY_SEPARATOR . trim($path, '/\\ .');
     }
-
 }

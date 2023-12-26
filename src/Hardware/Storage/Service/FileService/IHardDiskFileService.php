@@ -14,4 +14,13 @@ interface IHardDiskFileService
      * @return bool
      */
     public function copy(string $path, string $where, bool $replace = false):bool;
+
+    /**
+     * Create new file in $path
+     *
+     * @param string $path
+     * @param string $content
+     * @return bool
+     */
+    public function create(string $path, string $content):bool;
 }
