@@ -10,7 +10,8 @@ interface IHardDiskFileService
      * @param string $path
      * @param string $where is file filename address. for
      * example: /root/copyDirectory/file.txt
+     * @param bool $replace
      * @return bool
      */
-    public function copy(string $path, string $where):bool;
+    public function copy(string $path, string $where, bool $replace = false):bool;
 }

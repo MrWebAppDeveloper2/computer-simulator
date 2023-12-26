@@ -7,17 +7,28 @@ use Mahmodi\ComputerSimulator\Hardware\Storage\Service\DirectoryService\IHardDis
 
 class File implements IHardDiskFileService
 {
-
     /**
      * Copy $path file to $where  path
      *
      * @param string $path
      * @param string $where is file filename address. for
      * example: /root/copyDirectory/file.txt
+     * @param bool $replace
      * @return bool
+     * @throws \Exception
      */
-    public function copy(string $path, string $where): bool
+    public function copy(string $path, string $where, bool $replace = false): bool
     {
+        if(!file_exists($file = $this->getRealPath($path)))
+            throw new \Exception($path . ' file not found for copy this !');
+
+        if(file_exists($destination = $this->getRealPath($where)))
+            if(!$replace)
+                throw new \Exception('Can not copy ' . $path . ' file to ' . $where . ' because file already exists !');
+            else
+                unlink($destination);
+
+        return copy($file, $destination);
     }
 
     /**
@@ -35,4 +46,5 @@ class File implements IHardDiskFileService
 
         return $root . DIRECTORY_SEPARATOR . trim($path, '/\\ .');
     }
+
 }

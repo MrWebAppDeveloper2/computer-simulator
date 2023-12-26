@@ -6,10 +6,8 @@ use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
 use PHPUnit\Framework\TestCase;
 use Tests\Hardware\HardDisk\Traits\RefreshStorage;
 
-class DirectoryTest extends TestCase
+trait DirectoryTest
 {
-    use RefreshStorage;
-
     /**
      * Tests create method of HardDisk's Directory Service
      *
