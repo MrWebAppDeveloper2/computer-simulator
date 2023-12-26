@@ -51,6 +51,23 @@ class File implements IHardDiskFileService
     }
 
     /**
+     * Find file in HardDisk storage and return its content
+     *
+     * @param string $path
+     * @return string
+     * @throws \Exception
+     */
+    public function fetch(string $path): string
+    {
+        $realPath = $this->getRealPath($path);
+
+        if(!is_file($realPath))
+            throw new \Exception($path . ' file not found for fetch its content !');
+
+        return file_get_contents($realPath);
+    }
+
+    /**
      * Returns concatenate of root directory with entry $path parameter
      *
      * Before return address check that is root directory exists

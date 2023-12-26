@@ -23,4 +23,12 @@ interface IHardDiskFileService
      * @return bool
      */
     public function create(string $path, string $content):bool;
+
+    /**
+     * Find file in HardDisk storage and return its content
+     *
+     * @param string $path
+     * @return string
+     */
+    public function fetch(string $path):string;
 }
