@@ -54,17 +54,13 @@ class File implements IHardDiskFileService
      * Find file in HardDisk storage and return its content
      *
      * @param string $path
-     * @return string
-     * @throws \Exception
+     * @return string|null
      */
-    public function fetch(string $path): string
+    public function fetch(string $path): ?string
     {
         $realPath = $this->getRealPath($path);
 
-        if(!is_file($realPath))
-            throw new \Exception($path . ' file not found for fetch its content !');
-
-        return file_get_contents($realPath);
+        return is_file($realPath) ? file_get_contents($realPath) : null;
     }
 
     /**
@@ -82,7 +78,7 @@ class File implements IHardDiskFileService
                 return true;
             else
                 throw new \Exception($path . ' file not found for delete it !');
-            
+
         return unlink($realPath);
     }
 

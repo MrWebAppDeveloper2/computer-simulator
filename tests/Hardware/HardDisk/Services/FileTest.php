@@ -136,11 +136,9 @@ class FileTest extends TestCase
         $this->assertSame(HardDisk::file()->fetch($directories[1] . '/' . $filename), $content);
     }
 
-    public function test_fetch_file_method_service_throws_exception_when_file_address_is_fake_and_does_not_exists()
+    public function test_fetch_file_method_service_returns_null_when_file_address_is_fake_and_does_not_exists()
     {
-        $this->expectException(\Exception::class);
-
-        HardDisk::file()->fetch('test/sub/readme.txt');
+        $this->assertNull(HardDisk::file()->fetch('test/sub/readme.txt'));
     }
 
     public function test_fetch_file_method_service_return_value_is_ok_and_same_with_original_file_content()

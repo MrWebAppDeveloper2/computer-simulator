@@ -28,9 +28,9 @@ interface IHardDiskFileService
      * Find file in HardDisk storage and return its content
      *
      * @param string $path
-     * @return string
+     * @return string|null
      */
-    public function fetch(string $path):string;
+    public function fetch(string $path):?string;
 
     /**
      * Delete $path file
