@@ -38,7 +38,7 @@ trait FileTest
 
         $this->assertTrue(HardDisk::file()->create($filePath, $content));
 
-        $this->assertEquals($content, HardDisk::file($filePath));
+        $this->assertEquals($content, HardDisk::file()->fetch($filePath));
     }
 
     public function test_delete_file_method_service_throws_exception_when_file_path_is_fake_and_strict_flag_is_true()
