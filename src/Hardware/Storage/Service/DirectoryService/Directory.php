@@ -4,10 +4,8 @@ namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service\DirectoryService;
 
 use Exception;
 use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Helper\DirectoryHelper;
 use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\File;
 use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\IHardDiskFileService;
-use PHPUnit\Runner\InvalidPhptFileException;
 
 /**
  * Includes all function related to hard disk directory
@@ -41,9 +39,9 @@ class Directory implements IHardDiskDirectoryService
     private static function initialFileService(): void
     {
         try {
-            if(!isset(self::$file))
+            if (!isset(self::$file))
                 self::$file = new File();
-        } catch (Exception $e){
+        } catch (Exception $e) {
             throw new $e;
         }
     }
@@ -127,23 +125,52 @@ class Directory implements IHardDiskDirectoryService
         if (dirname($directory) === dirname($destinationDirectory))
             return rename($directory, $destinationDirectory);
 
-        if (!DirectoryHelper::copyDirectory($directory, $destinationDirectory))
+        if (!$this->copy($path, $where))
             throw new \Exception('Copy target directory ($path) to destination directory ($where) was not successful in move directory service');
 
         return self::delete($path);
     }
 
-    public function copy(string $path, string $where, bool $replace = true):bool
+    /**
+     * @throws Exception
+     */
+    public function copy(string $path, string $where, bool $replace = true): bool
     {
         if (!is_dir($directory = $this->getRealPath($path)))
-            return false;
+            throw new Exception("Copy $path directory unsuccessful because this directory not found !");
 
-        if (is_dir($destinationDirectory = $this->getRealPath($where)))
+        if (is_dir($destinationDirectory = $this->getRealPath("$where"))) {
             if (!$replace)
                 return false;
             else
                 if (!self::delete($destinationDirectory))
                     throw new \Exception('Remove directory for replace new unsuccessfully in copy directory method !');
+        }
+
+        $this->create("$where");
+
+        $assets = scandir($directory); // directory file and directory members
+
+        foreach ($assets as $name){
+            if($name == '.' || $name == '..')
+                continue;
+
+            switch ($assetPath = $directory . DIRECTORY_SEPARATOR . $name){
+                case is_dir($assetPath):{
+                    $this->copy("$path/$name", "$where/$name", $replace);
+                    break;
+                }
+                case is_file($assetPath):{
+                    copy($assetPath, $destinationDirectory . DIRECTORY_SEPARATOR . $name);
+                    break;
+                }
+                default:{
+                    throw new Exception('Unable error was encounter in copy directory service !');
+                }
+            }
+        }
+
+        return true;
     }
 
     /**

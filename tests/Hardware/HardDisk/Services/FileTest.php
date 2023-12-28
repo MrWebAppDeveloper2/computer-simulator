@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use Tests\Hardware\HardDisk\Traits\RefreshStorage;
 
-class FileTest extends TestCase
+trait FileTest
 {
     use RefreshStorage;
 

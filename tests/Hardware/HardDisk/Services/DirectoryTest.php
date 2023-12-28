@@ -177,7 +177,6 @@ trait DirectoryTest
      */
     public function test_move_directory_method_for_change_place_is_ok()
     {
-//        $this->markTestIncomplete("Because move directory method service can not realize between states renaming and moving directory. It can just rename directory for now .");
         $this->assertTrue(HardDisk::directory()->create('/first/myDirectory'));
 
         $this->assertTrue(HardDisk::directory()->move('/first/myDirectory', '/second/myDirectory'));
@@ -192,11 +191,13 @@ trait DirectoryTest
      * target directory for copy ,Service returns false
      *
      * @return void
+     * @throws \Exception
      */
     public function test_copy_directory_method_return_false_when_path_of_target_directory_is_fake()
     {
-        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
-        $this->assertFalse(HardDisk::directory()->copy('myDirectory', '/nested'));
+        $this->expectException(\Exception::class);
+
+        HardDisk::directory()->copy('myDirectory', '/nested/myDirectory');
     }
 
     /**
@@ -206,13 +207,29 @@ trait DirectoryTest
      * @return void
      * @throws \Exception
      */
-    public function test_copy_directory_method_return_false_when_path_of_destination_directory_is_fake()
+    public function test_copy_directory_method_return_is_ok_when_path_of_destination_directory_is_not_exists_and_it_does_not_build_in_the_past()
     {
-        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
+        $assets = [
+            [
+                'type' => 'file',
+                'name' => 'test.txt',
+                'content' => 'Hello world !',
+            ],
+            [
+                'type' => 'dir',
+                'name' => 'testDir'
+            ]
+        ];
 
         $this->assertTrue(HardDisk::directory()->create('/myDirectory'));
 
-        $this->assertFalse(HardDisk::directory()->copy('/myDirectory', '/nested'));
+        foreach ($assets as $asset)
+            if($asset['type'] === 'file')
+                HardDisk::file()->create('/myDirectory/' . $asset['name'], $asset['content']);
+            else
+                HardDisk::directory()->create('/myDirectory/' . $asset['name']);
+
+        $this->assertTrue(HardDisk::directory()->copy('/myDirectory', '/nested/MyDirectory'));
     }
 
     /**
@@ -226,13 +243,11 @@ trait DirectoryTest
      */
     public function test_copy_directory_method_return_false_when_there_is_a_same_name_directory_in_copy_path_and_replace_flag_is_false()
     {
-        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
-
         $this->assertTrue(HardDisk::directory()->create('/test/nested/myDirectory'));
 
         $this->assertTrue(HardDisk::directory()->create('/test/myDirectory'));
         
-        $this->assertFalse(HardDisk::directory()->copy('/test/myDirectory', '/test/nested', false));
+        $this->assertFalse(HardDisk::directory()->copy('/test/myDirectory', '/test/nested/myDirectory', false));
     }
 
     /**
@@ -246,13 +261,11 @@ trait DirectoryTest
      */
     public function test_copy_directory_method_return_true_when_there_is_a_same_name_directory_in_copy_path_and_replace_flag_is_true()
     {
-        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
-
         $this->assertTrue(HardDisk::directory()->create('/test/nested/myDirectory'));
 
         $this->assertTrue(HardDisk::directory()->create('/test/myDirectory'));
 
-        $this->assertFalse(HardDisk::directory()->copy('/test/myDirectory', '/test/nested', true));
+        $this->assertTrue(HardDisk::directory()->copy('/test/myDirectory', '/test/nested/myDirectory', true));
     }
 
     /**
@@ -264,15 +277,13 @@ trait DirectoryTest
      */
     public function test_copy_directory_method_is_ok()
     {
-        $this->markTestIncomplete('Because copy directory algorithm does not implemented as yet !');
-
         $this->assertTrue(HardDisk::directory()->create('/test/first'));
 
         $this->assertTrue(HardDisk::directory()->create('/test/first/nested'));
 
         $this->assertTrue(HardDisk::directory()->create('/test/second'));
 
-        $this->assertTrue(HardDisk::directory()->copy('/test/first', '/test/second'));
+        $this->assertTrue(HardDisk::directory()->copy('/test/first', '/test/second/first'));
 
         $this->assertTrue(in_array('first', HardDisk::directory()->list('/test/second')));
 
