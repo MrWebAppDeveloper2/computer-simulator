@@ -55,10 +55,13 @@ trait DirectoryTest
      * target directory for get list ,Service returns false
      *
      * @return void
+     * @throws \Exception
      */
-    public function test_list_directory_method_return_false_when_path_is_fake()
+    public function test_list_directory_method_throws_exception_when_path_is_fake()
     {
-        $this->assertFalse(HardDisk::directory()->list('/test/myDirectory'));
+        $this->expectException(\Exception::class);
+
+        HardDisk::directory()->list('/test/myDirectory');
     }
 
     /**
@@ -71,15 +74,15 @@ trait DirectoryTest
      */
     public function test_list_directory_method_for_show_hidden_files_and_directory_is_ok()
     {
-        $this->markTestIncomplete('Because file service class does not created as yet !');
-
         $this->assertTrue(HardDisk::directory()->create('/test'));
 
         $this->assertTrue(HardDisk::file()->create('/test/.myFile.txt', 'Hello World !'));
 
         $this->assertTrue(HardDisk::directory()->create('/test/.myDirectory'));
 
-        $this->assertTrue(in_array(['.myDirectory', '.myFile.txt'], HardDisk::directory()->list('/test/')));
+        $this->assertTrue(in_array('.myFile.txt', HardDisk::directory()->list('/test/', true)));
+
+        $this->assertTrue(in_array('.myDirectory', HardDisk::directory()->list('/test/', true)));
     }
 
     /**
@@ -91,7 +94,6 @@ trait DirectoryTest
      */
     public function test_list_directory_method_is_ok()
     {
-        $this->markTestIncomplete('Because file service class does not created as yet !');
 
         $this->assertTrue(HardDisk::directory()->create('/test'));
 
@@ -99,7 +101,9 @@ trait DirectoryTest
 
         $this->assertTrue(HardDisk::directory()->create('/test/myDirectory'));
 
-        $this->assertTrue(in_array(['myDirectory', 'myFile.txt'], HardDisk::directory()->list('/test/')));
+        $this->assertTrue(in_array('myFile.txt', HardDisk::directory()->list('/test/', true)));
+
+        $this->assertTrue(in_array('myDirectory', HardDisk::directory()->list('/test/', true)));
     }
 
     /**

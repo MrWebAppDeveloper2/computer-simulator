@@ -180,11 +180,12 @@ class Directory implements IHardDiskDirectoryService
      * @param string $path
      * @param bool $hidden if be true hidden files and directories add to return list
      * @return array|false
+     * @throws Exception
      */
     public function list(string $path, bool $hidden = false): array|false
     {
         if (!is_dir($directory = $this->getRealPath($path)))
-            return false;
+            throw new Exception("$path directory not found in directory list service method !");
 
         $list = scandir($directory);
 
