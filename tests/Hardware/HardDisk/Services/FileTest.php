@@ -45,7 +45,7 @@ class FileTest extends TestCase
     {
         $this->expectException(\Exception::class);
 
-        HardDisk::file()->delete('/test/sub/fake.txt');
+        HardDisk::file()->delete('/test/sub/fake.txt', true);
     }
 
     #[Depends('test_fetch_file_method_service_return_value_is_ok_and_same_with_original_file_content', 'test_create_file_method_is_ok_when_file_directory_is_not_exists_and_does_not_build_before')]

@@ -31,4 +31,13 @@ interface IHardDiskFileService
      * @return string
      */
     public function fetch(string $path):string;
+
+    /**
+     * Delete $path file
+     *
+     * @param string $path
+     * @param bool $strict When it is true, if $path is not exists an exception will throw
+     * @return bool
+     */
+    public function delete(string $path, bool $strict = false):bool;
 }

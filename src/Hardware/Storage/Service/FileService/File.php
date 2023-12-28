@@ -68,6 +68,25 @@ class File implements IHardDiskFileService
     }
 
     /**
+     * Delete $path file
+     *
+     * @param string $path
+     * @param bool $strict When it is true, if $path is not exists an exception will throw
+     * @return bool
+     * @throws \Exception
+     */
+    public function delete(string $path, bool $strict = false): bool
+    {
+        if(!file_exists($realPath = $this->getRealPath($path)))
+            if(!$strict)
+                return true;
+            else
+                throw new \Exception($path . ' file not found for delete it !');
+            
+        return unlink($realPath);
+    }
+
+    /**
      * Returns concatenate of root directory with entry $path parameter
      *
      * Before return address check that is root directory exists
