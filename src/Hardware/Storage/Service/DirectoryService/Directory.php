@@ -15,38 +15,6 @@ use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\IHardDiskFile
 class Directory implements IHardDiskDirectoryService
 {
     /**
-     * File service object
-     *
-     * @var IHardDiskFileService
-     */
-    private static IHardDiskFileService $file;
-
-    /**
-     * @throws Exception
-     */
-    public function __construct()
-    {
-        self::initialFileService();
-    }
-
-    /**
-     * Create new instance of file service object then
-     * store in property
-     *
-     * @return void
-     * @throws Exception
-     */
-    private static function initialFileService(): void
-    {
-        try {
-            if (!isset(self::$file))
-                self::$file = new File();
-        } catch (Exception $e) {
-            throw new $e;
-        }
-    }
-
-    /**
      * Makes enter path directory in computer hard disk root directory
      *
      * @param string $path
