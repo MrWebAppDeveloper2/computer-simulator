@@ -60,8 +60,8 @@ trait FileTest
         $this->assertTrue(HardDisk::file()->create($filePath, $content));
         
         $this->assertTrue(HardDisk::file()->delete($filePath));
-        
-        $this->assertEquals($content, HardDisk::file()->fetch($filePath));
+
+        $this->assertNull(HardDisk::file()->fetch($filePath));
     }
 
     public function test_copy_file_method_service_throws_exception_when_file_path_is_fake()
