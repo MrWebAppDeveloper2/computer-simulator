@@ -17,7 +17,7 @@ trait RefreshRam
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown():void
     {
         self::$ram = new Ram();
     }
@@ -27,7 +27,7 @@ trait RefreshRam
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp():void
     {
         self::$ram = null;
     }
