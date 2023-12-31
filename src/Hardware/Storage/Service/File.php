@@ -1,10 +1,10 @@
 <?php
 
-namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService;
+namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service;
 
+use Mahmodi\ComputerSimulator\Hardware\Interfaces\HardDisk\Services\IHardDiskDirectoryService;
+use Mahmodi\ComputerSimulator\Hardware\Interfaces\HardDisk\Services\IHardDiskFileService;
 use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Service\DirectoryService\Directory;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Service\DirectoryService\IHardDiskDirectoryService;
 
 class File implements IHardDiskFileService
 {

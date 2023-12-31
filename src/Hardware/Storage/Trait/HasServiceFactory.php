@@ -2,11 +2,10 @@
 
 namespace Mahmodi\ComputerSimulator\Hardware\Storage\Trait;
 
-use JetBrains\PhpStorm\Pure;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Service\DirectoryService\Directory;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Service\DirectoryService\IHardDiskDirectoryService;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\File;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\IHardDiskFileService;
+use Mahmodi\ComputerSimulator\Hardware\Interfaces\HardDisk\Services\IHardDiskDirectoryService;
+use Mahmodi\ComputerSimulator\Hardware\Interfaces\HardDisk\Services\IHardDiskFileService;
+use Mahmodi\ComputerSimulator\Hardware\Storage\Service\Directory;
+use Mahmodi\ComputerSimulator\Hardware\Storage\Service\File;
 
 /**
  * Includes all HardDisk's service classes method factory

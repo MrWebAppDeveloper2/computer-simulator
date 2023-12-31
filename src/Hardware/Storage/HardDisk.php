@@ -2,9 +2,10 @@
 
 namespace Mahmodi\ComputerSimulator\Hardware\Storage;
 
+use Mahmodi\ComputerSimulator\Hardware\Interfaces\HardDisk\IHardDisk;
 use Mahmodi\ComputerSimulator\Hardware\Storage\Trait\HasServiceFactory;
 
-class HardDisk
+class HardDisk implements IHardDisk
 {
     use HasServiceFactory;
 

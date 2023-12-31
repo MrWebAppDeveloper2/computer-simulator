@@ -1,11 +1,10 @@
 <?php
 
-namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service\DirectoryService;
+namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service;
 
 use Exception;
+use Mahmodi\ComputerSimulator\Hardware\Interfaces\HardDisk\Services\IHardDiskDirectoryService;
 use Mahmodi\ComputerSimulator\Hardware\Storage\HardDisk;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\File;
-use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\IHardDiskFileService;
 
 /**
  * Includes all function related to hard disk directory

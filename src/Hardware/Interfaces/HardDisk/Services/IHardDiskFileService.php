@@ -1,6 +1,6 @@
 <?php
 
-namespace Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService;
+namespace Mahmodi\ComputerSimulator\Hardware\Interfaces\HardDisk\Services;
 
 interface IHardDiskFileService
 {
