@@ -17,13 +17,26 @@ use Mahmodi\ComputerSimulator\Hardware\Storage\Service\FileService\IHardDiskFile
 trait HasServiceFactory
 {
     /**
+     * Singleton Design Pattern property
+     *
+     * Stores built instances of services for prevent
+     * rebuild in the future
+     *
+     * @var array
+     */
+    private static array $serviceInstances;
+
+    /**
      * Returns Directory service instance
      *
      * @return Directory
      */
-    #[Pure] public static function directory():IHardDiskDirectoryService
+    public static function directory():IHardDiskDirectoryService
     {
-        return new Directory();
+        if(!isset(self::$serviceInstances['directory']))
+            self::$serviceInstances['directory'] = new Directory();
+
+        return self::$serviceInstances['directory'];
     }
 
     /**
@@ -31,8 +44,11 @@ trait HasServiceFactory
      *
      * @return IHardDiskFileService
      */
-    #[Pure] public static function file():IHardDiskFileService
+    public static function file():IHardDiskFileService
     {
-        return new File();
+        if(!isset(self::$serviceInstances['file']))
+            self::$serviceInstances['file'] = new File();
+
+        return self::$serviceInstances['file'];
     }
 }
